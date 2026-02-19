@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiden Rogers | Portfolio</title>
+    <style>
+        /* --- General Reset & Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #464646; /* Dark gray from screenshots */
+            color: white;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #464646;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logo-box {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #464646;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+        
+        /* Simulating the M and ND logos with CSS */
+        .logo-m { color: #800000; font-family: serif; } 
+        .logo-nd { color: #000080; font-family: serif; }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #bbb;
+        }
+
+        .contact-btn {
+            background-color: #5a5a5a;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            border: 1px solid #777;
+            transition: background 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: #777;
+        }
+
+        /* --- Page Layout Logic --- */
+        .page {
+            display: none; /* Hide all pages by default */
+            padding: 40px 80px;
+            min-height: 80vh;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block; /* Show active page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Typography & Headings --- */
+        .hollow-text {
+            font-size: 60px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1px #a4b0ff; /* Light blue outline */
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .back-arrow {
+            font-size: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .placeholder-img {
+            background-color: #d3d3d3;
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        /* --- HOME PAGE Styles --- */
+        #home {
+            position: relative;
+            display: flex; /* Override block for flex layout */
+            align-items: center;
+            justify-content: space-between;
+            height: 80vh;
+        }
+
+        .hero-text-bg {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 20vw; /* Massive background text */
+            font-weight: bold;
+            color: #2a2a60; /* Dark blue/purple */
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+            line-height: 0.8;
+            overflow: hidden;
+        }
+
+        .home-content {
+            z-index: 1;
+            max-width: 50%;
+        }
+
+        .home-content p {
+            font-size: 24px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .home-image {
+            width: 350px;
+            height: 400px;
+            background-color: #d3d3d3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-size: 40px;
+        }
+
+        /* --- ABOUT PAGE Styles --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .blue-underline {
+            text-decoration: underline;
+            text-decoration-color: #007bff;
+            text-underline-offset: 5px;
+            line-height: 1.8;
+            font-size: 22px;
+        }
+
+        /* --- PROJECTS PAGE Styles --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .project-card h3 {
+            font-size: 28px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            margin-bottom: 15px;
+            color: white;
+            -webkit-text-stroke: 1px white; /* Outline style match */
+            color: transparent;
+        }
+
+        .project-card p {
+            font-size: 18px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .project-img-box {
+            width: 250px;
+            height: 250px;
+            background-color: #d3d3d3;
+        }
+
+        /* --- ATHLETICS PAGE Styles --- */
+        .athletics-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .sport-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* Alternate layout for sports */
+        .sport-section.reverse {
+            direction: rtl; /* Puts image on left, text on right visually */
+        }
+        .sport-section.reverse * {
+            direction: ltr; /* Reset text direction */
+        }
+
+        .sport-text h2 {
+            font-size: 60px;
+            color: transparent;
+            -webkit-text-stroke: 1px #a4b0ff;
+            margin-bottom: 20px;
+        }
+
+        .sport-text p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .sport-img {
+            width: 300px;
+            height: 300px;
+            background-color: #d3d3d3;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-text-bg { font-size: 15vw; top: 20%; }
+            #home, .about-grid, .projects-grid, .sport-section {
+                display: flex;
+                flex-direction: column;
+            }
+            .home-image { width: 100%; }
+            .logo-container { margin-bottom: 10px; }
+            header { flex-direction: column; gap: 15px; padding: 20px; }
+            nav ul { gap: 20px; font-size: 14px; }
+            .hollow-text { font-size: 40px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-box logo-m">
+<img src="MishawakaLogo.png" alt="Project Image" width="50" height="50">
+</div>
+           
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="showPage('projects')">Projects</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('athletics')">Athletics</a></li>
+            </ul>
+        </nav>
+        <a href="mailto:email@example.com" class="contact-btn">Contact Me</a>
+    </header>
+
+    <section id="home" class="page active">
+        <div class="hero-text-bg">AIDEN</div>
+
+        <div class="home-content">
+            <p>
+                I’m Aiden Rogers, a student athlete at Mishawaka High School. 
+                Check out my about me page for more info.
+            </p>
+        </div>
+
+        <div class="home-image">
+            Picture
+        </div>
+    </section>
+
+    <section id="about" class="page">
+        <div class="back-arrow" onclick="showPage('home')">←</div>
+        <h1 class="hollow-text">About</h1>
+        
+        <div class="about-grid">
+            <div class="about-text-box">
+                <p class="blue-underline">
+                    I’m Aiden Rogers, a student athlete at Mishawaka High School. I participate in cross country, hockey, and baseball. I also have been inducted into NHS(National Honor Society). Im currently pursuing my associates degree through Ivy Tech.
+                </p>
+            </div>
+            <div class="about-future">
+                <p style="font-size: 22px;">After high school i plan to attend ______.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="page">
+        <div class="back-arrow" onclick="showPage('home')">←</div>
+        <div style="text-align: center;">
+            <h1 class="hollow-text">Projects</h1>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Notre Dame Internship</h3>
+                <p>This is a program where I work with graduate students to learn and interact with computer engineering at the University of Notre Dame.</p>
+                <div class="project-img-box"></div>
+            </div>
+
+            <div class="project-card">
+                <h3>Associates Degree</h3>
+                <p>Through the early college program at my school I am currently working towards my associates degree. This degree will be from Ivy Tech. This degree puts me ahead of my class towards my future.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="athletics" class="page">
+        <div class="back-arrow" onclick="showPage('home')">←</div>
+        
+        <div class="athletics-layout">
+            <div class="sport-section reverse">
+                <div class="sport-text">
+                    <h2>Hockey</h2>
+                    <p>I have been playing hockey since I was 4. I currently play for John Adams High School as Mishawaka does not have a team. It is my favorite hobby by far. I love the speed and physicality while also needing to think about the next move.</p>
+                </div>
+                <div class="sport-img"></div>
+            </div>
+
+            <div class="sport-section">
+                <div class="sport-text">
+                    <h2>Baseball</h2>
+                    <p>I have played baseball ever since t-ball. I love the challenge and quick thinking of the game. During the spring I play for my school and during the summer I play travel ball. I have made new, great friends along the way on both of these teams.</p>
+                </div>
+                <div class="sport-img"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple function to switch between "pages"
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+                // Force display none logic via class
+                page.style.display = 'none';
+            });
+
+            // Show selected page
+            const selectedPage = document.getElementById(pageId);
+            if(selectedPage) {
+                selectedPage.style.display = (pageId === 'home') ? 'flex' : 'block';
+                setTimeout(() => {
+                    selectedPage.classList.add('active');
+                }, 10);
+            }
+        }
+
+        // Initialize Home Page properly on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
